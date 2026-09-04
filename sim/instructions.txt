@@ -1,0 +1,6 @@
+# One command runs at a time. Each duration is in seconds.
+draw_line((0, 4), (6, 4), 1.5)
+draw_semicircle((6, 4), (6, 0), 1.5, True)
+draw_line((6, 0), (0, 0), 1.5)
+draw_semicircle((0, 0), (0, 4), 1.5, True)
+stop(0.5)
