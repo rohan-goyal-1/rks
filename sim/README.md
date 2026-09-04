@@ -8,8 +8,8 @@ commands are in instructions.txt
 draw_line(start, end, speed)
 draw_arc(center, radius, start_angle, end_angle, speed, clockwise)
 draw_semicircle(start, end, speed, clockwise)
-
 ```
+
 run the commands
 ```bash
 python executor.py instructions.txt
