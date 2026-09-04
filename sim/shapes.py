@@ -15,7 +15,7 @@ def draw_line(start, end, speed, drawer):
     distance = 0
 
     while distance < length:
-        step = min(1, length - distance)
+        step = min(speed, length - distance)
         distance += step
 
         x = start[0] + ux * distance
@@ -47,7 +47,7 @@ def draw_arc(center, radius, start_angle, end_angle,
 
     while angle != end_angle:
         remaining = abs(end_angle - angle)
-        step = min(10, remaining)
+        step = min(speed, remaining)
 
         angle += angle_step * step
 
