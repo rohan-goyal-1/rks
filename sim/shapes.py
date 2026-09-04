@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def draw_line(start, end, duration, drawer):
+def draw_line(start, end, speed, drawer):
     drawer.start_at(start)
 
     dx = end[0] - start[0]
@@ -21,10 +21,11 @@ def draw_line(start, end, duration, drawer):
         x = start[0] + ux * distance
         y = start[1] + uy * distance
 
-        drawer.add_point(x, y, duration * step / length)
+        drawer.add_point(x, y, step / speed)
 
 
-def draw_arc(center, radius, start_angle, end_angle, duration, clockwise, drawer):
+def draw_arc(center, radius, start_angle, end_angle,
+             speed, clockwise, drawer):
     if clockwise:
         if end_angle > start_angle:
             end_angle -= 360
@@ -33,8 +34,6 @@ def draw_arc(center, radius, start_angle, end_angle, duration, clockwise, drawer
         if end_angle < start_angle:
             end_angle += 360
         angle_step = 1
-
-    total_angle = abs(end_angle - start_angle)
 
     start_radians = np.radians(start_angle)
     drawer.start_at(
@@ -57,10 +56,10 @@ def draw_arc(center, radius, start_angle, end_angle, duration, clockwise, drawer
         x = center[0] + radius * np.cos(theta)
         y = center[1] + radius * np.sin(theta)
 
-        drawer.add_point(x, y, duration * step / total_angle)
+        drawer.add_point(x, y, step / speed)
 
 
-def draw_semicircle(start, end, duration, clockwise, drawer):
+def draw_semicircle(start, end, speed, clockwise, drawer):
     drawer.start_at(start)
 
     center = ((start[0] + end[0]) / 2, (start[1] + end[1]) / 2)
@@ -76,4 +75,5 @@ def draw_semicircle(start, end, duration, clockwise, drawer):
     else:
         end_angle = start_angle + 180
 
-    draw_arc(center, radius, start_angle, end_angle, duration, clockwise, drawer)
+    draw_arc(center, radius, start_angle, end_angle,
+             speed, clockwise, drawer)

@@ -16,7 +16,7 @@ class Drawer:
             self.plot_x.append(point[0])
             self.plot_y.append(point[1])
 
-    def add_point(self, x, y, duration):
+    def add_point(self, x, y, pause):
         self.plot_x.append(x)
         self.plot_y.append(y)
 
@@ -28,10 +28,7 @@ class Drawer:
         self.ax.plot(self.plot_x, self.plot_y, "b-")
         self.ax.plot(x, y, "ro")
 
-        plt.pause(duration)
-
-    def wait(self, duration):
-        plt.pause(duration)
+        plt.pause(pause)
 
     def finish(self):
         input("Press enter to exit: ")

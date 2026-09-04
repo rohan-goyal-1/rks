@@ -4,26 +4,22 @@ from drawer import Drawer
 import shapes
 
 
-available_functions = ["draw_line", "draw_arc", "draw_semicircle", "stop"]
+available_functions = ["draw_line", "draw_arc", "draw_semicircle"]
 drawer = None
 
 
-def draw_line(start, end, duration):
-    shapes.draw_line(start, end, duration, drawer)
+def draw_line(start, end, speed):
+    shapes.draw_line(start, end, speed, drawer)
 
 
-def draw_arc(center, radius, start_angle, end_angle, duration, clockwise):
+def draw_arc(center, radius, start_angle, end_angle, speed, clockwise):
     shapes.draw_arc(
-        center, radius, start_angle, end_angle, duration, clockwise, drawer
+        center, radius, start_angle, end_angle, speed, clockwise, drawer
     )
 
 
-def draw_semicircle(start, end, duration, clockwise):
-    shapes.draw_semicircle(start, end, duration, clockwise, drawer)
-
-
-def stop(duration):
-    drawer.wait(duration)
+def draw_semicircle(start, end, speed, clockwise):
+    shapes.draw_semicircle(start, end, speed, clockwise, drawer)
 
 
 def run_a_func_from_string(command):
@@ -35,10 +31,7 @@ def run_a_func_from_string(command):
 def main():
     global drawer
 
-    if len(sys.argv) == 1:
-        filename = "instructions.txt"
-    else:
-        filename = sys.argv[1]
+    filename = sys.argv[1]
 
     print("reading file", filename)
 
