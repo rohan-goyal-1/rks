@@ -1,0 +1,13 @@
+# instructions
+stop_car()
+#forward
+rear_right(100, 10)
+stop_car()
+rear_left(100, 10)
+stop_car()
+#revrese
+rear_right(-100, 10)
+stop_car()
+rear_left(-100, 10)
+stop_car()
+# end of instructions

@@ -1,0 +1,21 @@
+# instructions
+stop_car()
+# forward
+front_right(60,2)
+stop_car()
+front_left(60,2)
+stop_car()
+rear_right(60,2)
+stop_car()
+rear_left(60,2)
+stop_car()
+#reverse
+front_right(-60,2)
+stop_car()
+front_left(-60,2)
+stop_car()
+rear_right(-60,2)
+stop_car()
+rear_left(-60,2)
+stop_car()
+# end of instructions

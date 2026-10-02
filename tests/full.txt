@@ -1,0 +1,2 @@
+front_right(100, 30)
+stop_car()

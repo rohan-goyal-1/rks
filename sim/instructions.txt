@@ -1,4 +1,0 @@
-draw_line((0, 4), (6, 4), 1)
-draw_semicircle((6, 4), (6, 0), 10, True)
-draw_line((6, 0), (0, 0), 1)
-draw_semicircle((0, 0), (0, 4), 10, True)
