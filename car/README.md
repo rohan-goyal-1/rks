@@ -1,27 +1,15 @@
-# Car
+# rks
 
-From this folder:
+set `env` in config.py to `'sim'` or `'hardware'`. pid / gyro / live plot switches are in there too
 
-```bash
-python3 executor.py [PATH/TO/INSTRUCTION/SET]
+```sh
+python3 executor.py instructions/quadrilateral.txt # hw5
+python3 executor.py instructions/square.txt # hw8
+python3 executor.py instructions/racetrack.txt # hw9
+python3 executor.py instructions/racetrack_two_laps.txt # hw10
+python3 executor.py instructions/racetrack_fixed_heading.txt # hw11
 ```
 
-Set `env` in `config.py` to `sim` or `hardware`. The runner uses `instructions/sim/` locally and
-`instructions/hardware/` on the car.
+meters. speed is % of max_speed. negative speed = backwards
 
-Simulation:
-```
-go_ahead((2, 2), (8, 2), 1)
-semi_circle((8, 2), (8, 8), 10, False)
-turn_left(90, 20)
-```
-Straight moves take start, end, speed in units/second. Semicircles take start, end, speed in degrees/second, clockwise. Turns take degrees, degrees/second.
-
-Hardware:
-```
-go_ahead(65, 3.15)
-stop_car()
-semi_circle(65, 6.8)
-stop_car()
-```
-Hardware uses power percent and seconds. Encoder diagnostics print RPM using each wheel’s `counts_per_rev` ratio.
+plot: red = real (encoders + gyro), black = planned. live_plot = False just records and replays it at the end (use that on the hardware if drawing makes it laggy)

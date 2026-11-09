@@ -1,0 +1,6 @@
+points = [(0.0, 0.0), (0.0, 1.0), (-1.0, 1.0), (-1.0, 0.0)]
+line(*points[0], *points[1], speed=60.0)
+mecanum_arc(*points[1], *points[2], speed=60.0, mode="ccw")
+line(*points[2], *points[3], speed=-60.0)
+mecanum_arc(*points[3], *points[0], speed=60.0, mode="ccw")
+simulate()

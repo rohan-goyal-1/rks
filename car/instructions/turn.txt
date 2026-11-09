@@ -1,0 +1,4 @@
+# points = [(0.0, 0.0), (1.0, 0.0), (1.5, 0.8660254038)]
+points = [(0.0, 0.0), (1.0, 0.0), (1.0, 1.0)]
+tank_turn(*points[0], *points[1], *points[2], speed=60.0)
+simulate()

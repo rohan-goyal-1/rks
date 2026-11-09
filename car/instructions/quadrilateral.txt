@@ -1,0 +1,9 @@
+points = [(0.0, 0.0), (1.0, 0.0), (1.5, 1.0), (-0.5, 1.5)]
+line(*points[0], *points[1], speed=40.0)
+tank_turn(*points[0], *points[1], *points[2], speed=40.0)
+line(*points[1], *points[2], speed=40.0)
+tank_turn(*points[1], *points[2], *points[3], speed=40.0)
+line(*points[2], *points[3], speed=40.0)
+tank_turn(*points[2], *points[3], *points[0], speed=40.0)
+line(*points[3], *points[0], speed=40.0)
+simulate()
