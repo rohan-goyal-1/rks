@@ -8,11 +8,8 @@ python3 executor.py instructions/square.txt # hw8
 python3 executor.py instructions/racetrack.txt # hw9
 python3 executor.py instructions/racetrack_two_laps.txt # hw10
 python3 executor.py instructions/racetrack_fixed_heading.txt # hw11
-python3 executor.py instructions/spline.txt # splines
-python3 executor.py instructions/spline_loop.txt
+python3 executor.py instructions/obstacle_course.txt # splines
 ```
-
-splines need scipy: `python3 -m pip install scipy`. `spline(points, speed)` faces along the curve, `mecanum_spline(points, speed)` keeps the heading and slides. if the first and last point are the same it does a smooth closed loop. no backwards splines, negative speed just counts as positive
 
 meters. speed is % of max_speed. negative speed = backwards
 
