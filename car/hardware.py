@@ -41,17 +41,18 @@ class Wheel:
 
     def move(self, power):
         power = max(-100, min(100, power))
+        self.en.duty_cycle = int(abs(power) * 0xFFFF / 100)
         if power > 0:
             self.in1.duty_cycle = 0xFFFF
             self.in2.duty_cycle = 0
         else:
             self.in1.duty_cycle = 0
             self.in2.duty_cycle = 0xFFFF
-        self.en.duty_cycle = int(abs(power) * 0xFFFF / 100)
 
     def brake(self):
-        self.in1.duty_cycle = 0
-        self.in2.duty_cycle = 0
+        self.in1.duty_cycle = 0xFFFF
+        self.in2.duty_cycle = 0xFFFF
+        self.en.duty_cycle = 0xFFFF
 
     def read(self, dt):
         count = self.count

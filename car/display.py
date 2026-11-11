@@ -5,8 +5,8 @@ import config
 
 xs = []
 ys = []
-pxs = []
-pys = []
+plan_x = []
+plan_y = []
 frames = []
 last_draw = 0
 names = ['fl', 'fr', 'rl', 'rr']
@@ -50,13 +50,26 @@ def update(x, y, heading, speeds, px, py, planned, targets):
     global last_draw
     xs.append(x)
     ys.append(y)
-    pxs.append(px)
-    pys.append(py)
     frames.append([x, y, heading, speeds, px, py, planned, targets])
     if config.live_plot and time.time() - last_draw > 0.1:
         draw(len(frames) - 1)
         plt.pause(0.001)
         last_draw = time.time()
+
+
+def plan(px, py):
+    plan_x.append(px)
+    plan_y.append(py)
+
+
+def show_plan():
+    plan_path.set_data(plan_x, plan_y)
+    if config.live_plot:
+        plt.pause(0.001)
+
+
+def dots(x, y):
+    path_ax.plot(x, y, 'ko', markersize=4)
 
 
 def body(w):
@@ -73,7 +86,6 @@ def needle(speed):
 def draw(i):
     x, y, heading, speeds, px, py, planned, targets = frames[i]
     path.set_data(xs[:i + 1], ys[:i + 1])
-    plan_path.set_data(pxs[:i + 1], pys[:i + 1])
     arrow.set_offsets([x, y])
     arrow.set_UVC(np.cos(heading), np.sin(heading))
     plan_arrow.set_offsets([px, py])

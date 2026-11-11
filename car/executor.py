@@ -9,6 +9,11 @@ def main():
     print('running', filename)
     with open(filename) as file:
         commands = file.readlines()
+    car.dry = True
+    for command in commands:
+        if '#' not in command:
+            exec(command, vars(car))
+    car.reset()
     for command in commands:
         if '#' not in command:
             print(command, end='')
