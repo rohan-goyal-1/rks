@@ -1,3 +1,6 @@
+# ===== FAKE DRIVER =====
+
+# perfect wheels, no gyro
 def step(targets, dt):
     return targets, None
 
