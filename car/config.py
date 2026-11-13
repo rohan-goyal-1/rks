@@ -17,7 +17,7 @@ track_width = 0.2286
 counts_per_rev = (135234 / 112.3, 134542 / 111.8,
                   138728 / 116.0, 135162 / 111.5)
 
-# -1 flips a backwards encoder
+# -1 flips encoder
 sides = (-1, 1, -1, 1)
 gyro_sign = 1
 

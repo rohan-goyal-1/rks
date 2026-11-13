@@ -212,8 +212,6 @@ def mecanum_arc(x1, y1, x2, y2, speed, mode='ccw',
 # ===== SPLINES =====
 
 def spline(points, speed, fixed=False):
-    global planned, px, py
-
     # d = distance along the waypoints, the spline parameter
     xs = []
     ys = []
@@ -227,15 +225,13 @@ def spline(points, speed, fixed=False):
     fx = CubicSpline(d, xs, bc_type='natural')
     fy = CubicSpline(d, ys, bc_type='natural')
 
-    # bend = curvature
-    t = np.linspace(0, d[-1], 500)
+    # chop into ~10 cm straight pieces
+    n = int(d[-1] / 0.1) + 1
+    t = np.linspace(0, d[-1], n + 1)
     sx = fx(t)
     sy = fy(t)
-    dx = fx(t, 1)
-    dy = fy(t, 1)
-    bend = (dx * fy(t, 2) - dy * fx(t, 2)) / np.hypot(dx, dy) ** 3
-    angles = np.unwrap(np.arctan2(dy, dx))
-    dist = np.append(0, np.cumsum(np.hypot(np.diff(sx), np.diff(sy))))
+    lengths = np.hypot(np.diff(sx), np.diff(sy))
+    angles = np.unwrap(np.arctan2(np.diff(sy), np.diff(sx)))
 
     # shift by 2pi so it lines up with planned after earlier turns
     start_at(sx[0], sy[0], angles[0])
@@ -243,29 +239,21 @@ def spline(points, speed, fixed=False):
 
     display.dots(xs, ys)
     v = abs(speed) / 100 * config.max_speed
-    secs = dist[-1] / v
-    print('spline', round(dist[-1], 2), 'm', round(secs, 2), 's')
+    print('spline', round(lengths.sum(), 2), 'm', n, 'pieces')
 
-    begin = time.time()
-    last = begin
-    while time.time() - begin < secs:
-        time.sleep(config.dt)
-        now = time.time()
+    for i in range(n):
+        secs = lengths[i] / v
 
-        s = v * min(now - begin, secs)
-        px = np.interp(s, dist, sx)
-        py = np.interp(s, dist, sy)
-        angle = np.interp(s, dist, angles)
-
-        # fixed: slide relative to real heading, else: turn rate = v * bend
+        # fixed: slide relative to real heading
         if fixed:
-            travel = angle - heading
-            go(v * np.cos(travel), v * np.sin(travel), 0, now - last)
-        else:
-            planned = angle
-            go(v, 0, v * np.interp(s, dist, bend), now - last)
+            travel = angles[i] - heading
+            drive(v * np.cos(travel), v * np.sin(travel), 0, secs)
 
-        last = now
+        # else: end the piece facing between it and the next one
+        else:
+            end = (angles[i] + angles[min(i + 1, n - 1)]) / 2
+            drive(v, 0, (end - planned) / secs, secs)
+
     stop_car()
 
 
